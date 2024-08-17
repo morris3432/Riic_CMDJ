@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Control de Dron</title>
+</head>
+<body>
+  <h1>Control de Dron</h1>
+  <table align="center">
+    <tr>
+      <td></td>
+      <td align="center">
+        <button onclick="sendCommand('forward')">Delante</button>
+      </td>
+      <td></td>
+      </tr>
+      <tr>
+        <td align="center">
+          <button onclick="sendCommand('left')">Izquierda</button> 
+        </td>
+        <td align="center">
+          <button onclick="sendCommand('stop')">Alto</button>
+        </td>
+        <td align="center">
+          <button onclick="sendCommand('right')">Derecha</button>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td align="center"><button onclick="sendCommand('backward')">Atras</button></td>
+        <td></td>
+      </tr>
+      
+  
+  
+  </table>
+
+  <script>
+    const ws = new WebSocket('ws://IP_DE_TU_RASPBERRY_PI:8765');
+
+    ws.onopen = () => {
+      console.log('Conectado al servidor WebSocket');
+    };
+
+    ws.onmessage = (event) => {
+      console.log('Mensaje del servidor:', event.data);
+    };
+
+    function sendCommand(command) {
+      ws.send(command);
+    }
+  </script>
+</body>
+</html>
